@@ -61,6 +61,7 @@ router.post("/add", upload.single("image"), async (req, res) => {
 });
 
 router.post("/update/:id", async (req, res) => {
+    console.log("HERERooo",req.body)
     try {
         const id = req.params.id;
         const upData = req.body;

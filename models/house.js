@@ -7,6 +7,10 @@ const houseSchema = new mongoose.Schema({
         type: Number,
         unique: true
     },
+    p24_id : {
+        type: String,
+        unique: true
+    },
     spooterName: {
         type: String,
         required: true
