@@ -187,8 +187,8 @@ router.post("/signup", upload.single("images"), async (req, res) => {
     const transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
-            user: "algobot701@gmail.com",
-            pass: "jfth qddl nkgp yitb",
+            user: "propertyspottersystem@gmail.com",
+            pass: "iaxx kxwd debg uxrt",
         },
     });
 
@@ -298,8 +298,8 @@ router.post("/signup/google", async (req, res) => {
         const transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
-                user: "algobot701@gmail.com",
-                pass: "jfth qddl nkgp yitb",
+                user: "propertyspottersystem@gmail.com",
+                pass: "iaxx kxwd debg uxrt",
             },
         });
 
@@ -511,8 +511,8 @@ router.post("/agency/add-agency", upload.single("images"), async (req, res) => {
         var transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
-                user: "algobot701@gmail.com",
-                pass: "jfth qddl nkgp yitb",
+                user: "propertyspottersystem@gmail.com",
+                pass: "iaxx kxwd debg uxrt",
             },
         });
 
@@ -576,8 +576,8 @@ router.post("/agent", async (req, res) => {
         var transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
-                user: "algobot701@gmail.com",
-                pass: "jfth qddl nkgp yitb",
+                user: "propertyspottersystem@gmail.com",
+                pass: "iaxx kxwd debg uxrt",
             },
         });
 
@@ -792,13 +792,13 @@ router.post("/forgot-password/:email", async (req, res) => {
         var transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
-                user: "algobot701@gmail.com",
+                user: "propertyspottersystem@gmail.com",
                 pass: "fvpj cgjn kbim mvgy",
             },
         });
 
         var mailOptions = {
-            from: "algobot701@gmail.com",
+            from: "propertyspottersystem@gmail.com",
             to: user.email,
             subject: "Reset Password Link",
             text: `http://localhost:5173/reset_password/${user._id}/${token}`,
