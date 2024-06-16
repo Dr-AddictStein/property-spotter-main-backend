@@ -15,11 +15,12 @@ const transporter = nodemailer.createTransport({
 
 const houseAdd = async (houseData, image) => {
     try {
+        const { suburb, city, province, bedroom, bathroom, houseOwnerName, houseOwnerEmail, houseOwnerPhone, agentName, agentEmail, agentPhone } = houseData;
         const newData = houseData;
+        console.log(":HOUSE",newData)
         newData.image = image;
         const newHouse = new House(newData);
         const savedHouse = await newHouse.save();
-        const { suburb, city, province, bedroom, bathroom, houseOwnerName, houseOwnerEmail, houseOwnerPhone, agentName, agentEmail } = houseData;
 
         const mailOptions = {
             from: process.env.EMAIL_USER,
@@ -34,6 +35,7 @@ const houseAdd = async (houseData, image) => {
             Owner Phone: ${houseOwnerPhone}
             Assigned agent Name: ${agentName}
             Assigned agent email: ${agentEmail}
+            Assigned agent phone: ${agentPhone}
             Please review and take any necessary actions.
             
             Thank you,

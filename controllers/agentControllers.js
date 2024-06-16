@@ -33,13 +33,15 @@ const upload = multer({ storage: storage });
 const addAgent = async (req, res, next) => {
     try {
 
-        const { name, email, password,agency } = req.body;
+        console.log("HERER", req.body)
+        const { name, email, phone, password, agency } = req.body;
 
         const newAgent = new Agent({
-            name, 
-            email, 
+            name,
+            email,
+            phone,
             password,
-            agency 
+            agency
         });
         const agent = await newAgent.save();
         res.status(201).json(agent);
@@ -49,7 +51,7 @@ const addAgent = async (req, res, next) => {
     }
 }
 
-const getAgent =async(req, res, next)=>{
+const getAgent = async (req, res, next) => {
     try {
         const areas = await Agent.find();
         res.json(areas);
@@ -60,17 +62,18 @@ const getAgent =async(req, res, next)=>{
 }
 
 
-const updateAgent = async(req, res, next)=>{
+const updateAgent = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const { name, email, password, agency } = req.body;
+        const { name, email, phone, password, agency } = req.body;
         const updateAgent = {};
         if (name) updateAgent.name = name;
         if (email) updateAgent.email = email;
+        if (phone) updateAgent.phone = phone;
         if (password) updateAgent.password = password;
         if (agency) updateAgent.agency = agency;
 
-   
+
         const updatedAgent = await Agent.findByIdAndUpdate(id, updateAgent, { new: true });
 
         if (!updatedAgent) {
@@ -85,9 +88,9 @@ const updateAgent = async(req, res, next)=>{
 
 
 
-const deleteAgent= async (req, res, next) => {
+const deleteAgent = async (req, res, next) => {
     try {
-        const {id} = req.params;
+        const { id } = req.params;
         console.log(id);
 
         const deletedAgent = await Agent.findByIdAndDelete(id);
@@ -101,4 +104,4 @@ const deleteAgent= async (req, res, next) => {
     }
 }
 
-module.exports = { addAgent,getAgent, deleteAgent,updateAgent, upload }
+module.exports = { addAgent, getAgent, deleteAgent, updateAgent, upload }

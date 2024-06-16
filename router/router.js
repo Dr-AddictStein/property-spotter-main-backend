@@ -44,6 +44,7 @@ const {
 const router = expres.Router();
 
 router.post("/add", upload.single("image"), async (req, res) => {
+    
     try {
         const path = "http://localhost:5000/image/areas/";
         if (!req.file) {

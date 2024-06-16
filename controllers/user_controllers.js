@@ -148,13 +148,13 @@ router.post("/signup", upload.single("images"), async (req, res) => {
 
     console.log('hit this signup route');
 
-    const { name, email, role, password, agencyName, termsAndcondition } =
+    const { name, email, phone, role, password, agencyName, termsAndcondition } =
         req.body;
 
     const filenames = req.file.filename;
     const query = { email: email };
 
-    if (!name || !email || !password) {
+    if (!name || !email || !password || !phone) {
         throw new Error("All fields are required");
     }
 
@@ -172,6 +172,7 @@ router.post("/signup", upload.single("images"), async (req, res) => {
     const userData = {
         name: name,
         email: email,
+        phone: phone,
         role: role,
         photoURL: path + filenames,
         password: hashedPassword,

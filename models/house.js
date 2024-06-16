@@ -90,6 +90,9 @@ const houseSchema = new mongoose.Schema({
     agentEmail: {
         type: String,
     },
+    agentPhone: {
+        type: String,
+    },
     agentImage: {
         type: String,
     },
