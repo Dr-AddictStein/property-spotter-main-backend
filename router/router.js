@@ -46,7 +46,7 @@ const router = expres.Router();
 router.post("/add", upload.single("image"), async (req, res) => {
     
     try {
-        const path = "http://localhost:5000/image/areas/";
+        const path = "https://api.propertyspotter.co.za/image/areas/";
         if (!req.file) {
             throw new Error("No file uploaded");
         }
