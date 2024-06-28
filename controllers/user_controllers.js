@@ -11,6 +11,8 @@ var nodemailer = require("nodemailer");
 const { ObjectId } = require("mongodb");
 const crypto = require("crypto");
 
+require("dotenv").config();
+
 //----------------------- Multer -----------------//
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
