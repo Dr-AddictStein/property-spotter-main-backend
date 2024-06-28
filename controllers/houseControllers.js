@@ -15,7 +15,7 @@ const transporter = nodemailer.createTransport({
 
 const houseAdd = async (houseData, image) => {
     try {
-        const { suburb, city, province, bedroom, bathroom, houseOwnerName, houseOwnerEmail, houseOwnerPhone, agentName, agentEmail, agentPhone } = houseData;
+        const { suburb, city, province, bedroom, bathroom, houseOwnerName, houseOwnerEmail, houseOwnerPhone, agentName, agentEmail, agentPhone, p24_id } = houseData;
         const newData = houseData;
         console.log(":HOUSE",newData)
         newData.image = image;
@@ -36,6 +36,7 @@ const houseAdd = async (houseData, image) => {
             Assigned agent Name: ${agentName}
             Assigned agent email: ${agentEmail}
             Assigned agent phone: ${agentPhone}
+            By default Property24 ID: ${p24_id}
             Please review and take any necessary actions.
             
             Thank you,
