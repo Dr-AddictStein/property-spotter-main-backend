@@ -408,6 +408,7 @@ router.post("/signup/spotter", upload.single("images"), async (req, res) => {
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
             console.log(error);
+            return res.send({ Status: "!!!success" });
         } else {
             return res.send({ Status: "Success" });
         }
