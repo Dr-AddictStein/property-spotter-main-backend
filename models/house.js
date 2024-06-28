@@ -9,7 +9,6 @@ const houseSchema = new mongoose.Schema({
     },
     p24_id : {
         type: String,
-        unique: true
     },
     spooterName: {
         type: String,
