@@ -446,7 +446,8 @@ router.post("/signup/spotter", upload.single("images"), async (req, res) => {
     const insertedData = await userCollection.insertOne(userData);
     res.status(200).json({
         message: "User created successfully",
-        
+        mail,
+        insertedData,
     });
 });
 
