@@ -215,7 +215,7 @@ router.post("/signup", upload.single("images"), async (req, res) => {
     const mailOptionsTwo = {
         from: "no-reply@property-spotter.com",
         //it's be chnage for this site owner or admin email
-        to: "shimulzahan636@gmail.com",
+        to: "propertyspottersystem@gmail.com",
         subject: `New ${role} has been registered on Property Spotter!`,
         text: `
           A new ${role} has been registered on Property Spotter!
@@ -306,7 +306,7 @@ router.post("/signup/google", async (req, res) => {
         const mailOptionsTwo = {
             from: "no-reply@property-spotter.com",
             //it's be chnage for this site owner or admin email
-            to: "shimulzahan636@gmail.com",
+            to: "propertyspottersystem@gmail.com",
             subject: `New ${role} has been registered on Property Spotter!`,
             text: `
             A new ${role} has been registered on Property Spotter!
