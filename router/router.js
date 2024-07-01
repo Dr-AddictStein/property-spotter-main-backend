@@ -84,7 +84,7 @@ router.post("/update/:id", async (req, res) => {
             text: "Status Changed",
             html: `
             <b>Hello Admin,</b>
-            <b>Status of a house has been changed to ${req.body.status}</b>
+            <b>Status of Listing(RandomID:${req.body.random_id}) has been changed to ${req.body.status}</b>
         `,
         };
     
