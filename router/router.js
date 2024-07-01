@@ -44,6 +44,7 @@ const {
     addMessage,
     getMessages,
 } = require("../controllers/message_controllers");
+const userCollection = require("../models/users");
 const router = expres.Router();
 
 router.post("/add", upload.single("image"), async (req, res) => {
@@ -100,22 +101,29 @@ router.post("/update/:id", async (req, res) => {
             });
         }
         else{
+            const agentMail = await userCollection.findOne({
+                name:req.body.agentName,
+                agencyName:req.body.agency[0]
+            }).email;
+            console.log("AGENTAMILA",agentMail)
             const mailOptions = {
                 from: process.env.EMAIL_USER,
-                to: process.env.EMAIL_ADMIN,
+                to: agentMail,
                 subject: "A new house has been assigned to you.",
                 text: `A new house has been assigned to you. ID: ${req.body.house.random_id}`,
                 html: `
-                <b>Address: ${req.body.house.address + ' ' + req.body.house.suburb + ' ' + req.body.house.city + ' '+ req.body.house.province}</b>
-                <b>Bedrooms: ${req.body.house.bedroom}</b>
-                <b>Bathrooms: ${req.body.house.bathroom}</b>
-                <b>Owner Name: ${req.body.house.houseOwnerName}</b>
-                <b>Owner Email: ${req.body.house.houseOwnerEmail}</b>
-                <b>Owner Phone: ${req.body.house.houseOwnerPhone}</b>
+                <p>Address: ${req.body.house.address + ' ' + req.body.house.suburb + ' ' + req.body.house.city + ' '+ req.body.house.province}</p></br>
+                <p>Bedrooms: ${req.body.house.bedroom}</p></br>
+                <p>Bathrooms: ${req.body.house.bathroom}</p></br>
+                <p>Owner Name: ${req.body.house.houseOwnerName}</p></br>
+                <p>Owner Email: ${req.body.house.houseOwnerEmail}</p></br>
+                <p>Owner Phone: ${req.body.house.houseOwnerPhone}</p></br>
 
                 <p>Please review and take necessary actions.</p>
             `,
             };
+
+            
         
             transporter.sendMail(mailOptions, function (error, info) {
                 if (error) {
