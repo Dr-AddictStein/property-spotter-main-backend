@@ -152,10 +152,10 @@ const singleHouseDetails = async (req, res) => {
 };
 
 const updateHouseDataByAgent = async (req, res) => {
-    console.log("AAA",req.body)
     try {
         const id = req.params.id;
         const upData = req.body;
+        console.log("AAA up",upData)
         const agencyName = req.body.agencyName;
         const agencyDetails = await userCollection.findOne({
             name: agencyName,
