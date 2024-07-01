@@ -152,6 +152,7 @@ const singleHouseDetails = async (req, res) => {
 };
 
 const updateHouseDataByAgent = async (req, res) => {
+    console.log("AAA",req.body)
     try {
         const id = req.params.id;
         const upData = req.body;
