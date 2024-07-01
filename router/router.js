@@ -1,4 +1,7 @@
 const expres = require("express");
+var nodemailer = require("nodemailer");
+require("dotenv").config();
+
 const {
     houseAdd,
     getHouse,
