@@ -101,14 +101,12 @@ router.post("/update/:id", async (req, res) => {
             });
         }
         else{
-            const agentMail = await userCollection.findOne({
-                name:req.body.agentName,
-                agencyName:req.body.agency[0]
-            }).email;
-            console.log("AGENTAMILA",agentMail)
+            const house = await House.findById({_id:id})
+
+            console.log("SUDU",house.agentEmail);
             const mailOptions = {
                 from: process.env.EMAIL_USER,
-                to: agentMail,
+                to: house.agentEmail,
                 subject: "A new house has been assigned to you.",
                 text: `A new house has been assigned to you. ID: ${req.body.house.random_id}`,
                 html: `
