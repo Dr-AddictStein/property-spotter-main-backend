@@ -167,7 +167,7 @@ const updateHouseDataByAgent = async (req, res) => {
         const random_id=req.body.random_id;
         const result = await House.findByIdAndUpdate(id, upData);
         if (upData.oldStatus !== upData.status) {
-            console.log("AAA up zzz","-> "+oldStatus,"-> "+status)
+            console.log("AAA up zzz","-> "+oldStatus,"-> "+status,"-> "+random_id)
             const mailOptions = {
                 from: process.env.EMAIL_USER,
                 to: process.env.EMAIL_ADMIN,
