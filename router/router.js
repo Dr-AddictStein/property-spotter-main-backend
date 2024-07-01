@@ -64,9 +64,9 @@ router.post("/add", upload.single("image"), async (req, res) => {
 });
 
 router.post("/update/:id", async (req, res) => {
-    console.log("HERERooo Issues",req.body)
     try {
         const id = req.params.id;
+        console.log("HERERooo Issues",id)
         const upData = req.body;
         const response = await House.findByIdAndUpdate(id, upData);
         res.status(201).json(response);
