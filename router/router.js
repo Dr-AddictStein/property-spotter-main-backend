@@ -110,6 +110,7 @@ router.post("/update/:id", async (req, res) => {
                 subject: "A new house has been assigned to you.",
                 text: `A new house has been assigned to you. ID: ${req.body.house.random_id}`,
                 html: `
+                <p>House ID: ${req.body.house.random_id}</p></br>
                 <p>Address: ${req.body.house.address + ' ' + req.body.house.suburb + ' ' + req.body.house.city + ' '+ req.body.house.province}</p></br>
                 <p>Bedrooms: ${req.body.house.bedroom}</p></br>
                 <p>Bathrooms: ${req.body.house.bathroom}</p></br>
