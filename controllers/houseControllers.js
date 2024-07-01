@@ -27,7 +27,7 @@ const houseAdd = async (houseData, image) => {
             to: process.env.EMAIL_ADMIN,
             subject: `New House Added !`,
             text: `A new house has been added to Property Spotter.
-            House ID: ${savedHouse.random_id}
+            Random ID: ${savedHouse.random_id}
             Adress: ${suburb} ${province} ${city}
             Bedrooms: ${bedroom}
             Bathrooms: ${bathroom}
@@ -59,7 +59,7 @@ const houseAdd = async (houseData, image) => {
                 to: agentEmail,
                 subject: `A New House Assign to You !`,
                 text: `A new house has been Assign to You.
-                House ID: ${savedHouse.random_id}
+                Random ID: ${savedHouse.random_id}
                 Adress: ${suburb} ${province} ${city}
                 Bedrooms: ${bedroom}
                 Bathrooms: ${bathroom}
