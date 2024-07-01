@@ -170,7 +170,7 @@ const updateHouseDataByAgent = async (req, res) => {
                 to: process.env.EMAIL_ADMIN,
                 subject: `Listing ${upData.random_id} status has been updated`,
 
-                text: `Listing ${upData.random_id} status has been changed from ${upData?.oldStatus} to ${upData?.status}
+                text: `Listing ${upData.random_id} status has been changed from ${upData.oldStatus} to ${upData.status}
                 Please review and take any necessary actions.
                 
                 Thank you,
