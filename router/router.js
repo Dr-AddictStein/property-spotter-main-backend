@@ -79,7 +79,7 @@ router.post("/update/:id", async (req, res) => {
     
         const mailOptions = {
             from: process.env.EMAIL_USER,
-            to: EMAIL_ADMIN,
+            to: process.env.EMAIL_ADMIN,
             subject: "Status Change",
             text: "Status Changed",
             html: `
