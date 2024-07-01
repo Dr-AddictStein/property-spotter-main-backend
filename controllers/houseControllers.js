@@ -155,7 +155,6 @@ const updateHouseDataByAgent = async (req, res) => {
     try {
         const id = req.params.id;
         const upData = req.body;
-        console.log("AAA up",upData)
         const agencyName = req.body.agencyName;
         const agencyDetails = await userCollection.findOne({
             name: agencyName,
@@ -165,6 +164,7 @@ const updateHouseDataByAgent = async (req, res) => {
         upData.agencyImage = agencyDetails.photoURL;
         const result = await House.findByIdAndUpdate(id, upData);
         if (upData.oldStatus !== upData.status) {
+            console.log("AAA up zzz",upData.oldStatus,upData.status)
             const mailOptions = {
                 from: process.env.EMAIL_USER,
                 to: process.env.EMAIL_ADMIN,
