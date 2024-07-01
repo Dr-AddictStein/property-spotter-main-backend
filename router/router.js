@@ -64,8 +64,9 @@ router.post("/add", upload.single("image"), async (req, res) => {
 });
 
 router.post("/update/:id", async (req, res) => {
-    console.log("HERERooo Issues",req.body)
+    console.log("HERERooo Issues zz:",req.body)
     try {
+        const forStatus=req.body.forStatus;
         const id = req.params.id;
         const upData = req.body;
         const response = await House.findByIdAndUpdate(id, upData);
@@ -76,26 +77,56 @@ router.post("/update/:id", async (req, res) => {
                 pass: process.env.EMAIL_PASSWORD,
             },
         });
+
+        if(forStatus){
+            const mailOptions = {
+                from: process.env.EMAIL_USER,
+                to: process.env.EMAIL_ADMIN,
+                subject: "Status Change",
+                text: "Status Changed",
+                html: `
+                <b>Hello Admin,</b>
+                <b>Status of Listing(RandomID:${req.body.random_id}) has been changed to ${req.body.status}</b>
+            `,
+            };
+        
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    console.log(error);
+                    return res.send({ Status: "!!!success" });
+                } else {
+                    return res.send({ Status: "Success" });
+                }
+            });
+        }
+        else{
+            const mailOptions = {
+                from: process.env.EMAIL_USER,
+                to: process.env.EMAIL_ADMIN,
+                subject: "A new house has been assigned to you.",
+                text: `A new house has been assigned to you. ID: ${req.body.house.random_id}`,
+                html: `
+                <b>Address: ${req.body.house.address + ' ' + req.body.house.suburb + ' ' + req.body.house.city + ' '+ req.body.house.province}</b>
+                <b>Bedrooms: ${req.body.house.bedroom}</b>
+                <b>Bathrooms: ${req.body.house.bathroom}</b>
+                <b>Owner Name: ${req.body.house.houseOwnerName}</b>
+                <b>Owner Email: ${req.body.house.houseOwnerEmail}</b>
+                <b>Owner Phone: ${req.body.house.houseOwnerPhone}</b>
+
+                <p>Please review and take necessary actions.</p>
+            `,
+            };
+        
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    console.log(error);
+                    return res.send({ Status: "!!!success" });
+                } else {
+                    return res.send({ Status: "Success" });
+                }
+            });
+        }
     
-        const mailOptions = {
-            from: process.env.EMAIL_USER,
-            to: process.env.EMAIL_ADMIN,
-            subject: "Status Change",
-            text: "Status Changed",
-            html: `
-            <b>Hello Admin,</b>
-            <b>Status of Listing(RandomID:${req.body.random_id}) has been changed to ${req.body.status}</b>
-        `,
-        };
-    
-        transporter.sendMail(mailOptions, function (error, info) {
-            if (error) {
-                console.log(error);
-                return res.send({ Status: "!!!success" });
-            } else {
-                return res.send({ Status: "Success" });
-            }
-        });
         res.status(201).json(response);
     } catch (error) {
         console.log(error);
