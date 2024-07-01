@@ -162,15 +162,18 @@ const updateHouseDataByAgent = async (req, res) => {
         });
         upData.agencyEmail = agencyDetails.email;
         upData.agencyImage = agencyDetails.photoURL;
+        const oldStatus=req.body.oldStatus;
+        const status = req.body.status;
+        const random_id=req.body.random_id;
         const result = await House.findByIdAndUpdate(id, upData);
         if (upData.oldStatus !== upData.status) {
-            console.log("AAA up zzz",upData.oldStatus,upData.status)
+            console.log("AAA up zzz","-> "+oldStatus,"-> "+status)
             const mailOptions = {
                 from: process.env.EMAIL_USER,
                 to: process.env.EMAIL_ADMIN,
-                subject: `Listing ${upData.random_id} status has been updated`,
+                subject: `Listing ${random_id} status has been updated`,
 
-                text: `Listing ${upData.random_id} status has been changed from ${upData.oldStatus} to ${upData.status}
+                text: `Listing ${random_id} status has been changed from ${oldStatus} to ${status}
                 Please review and take any necessary actions.
                 
                 Thank you,
