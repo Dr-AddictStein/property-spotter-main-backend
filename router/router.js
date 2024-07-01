@@ -69,6 +69,33 @@ router.post("/update/:id", async (req, res) => {
         const id = req.params.id;
         const upData = req.body;
         const response = await House.findByIdAndUpdate(id, upData);
+        const transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASSWORD,
+            },
+        });
+    
+        const mailOptions = {
+            from: process.env.EMAIL_USER,
+            to: EMAIL_ADMIN,
+            subject: "Status Change",
+            text: "Status Changed",
+            html: `
+            <b>Hello Admin,</b>
+            <b>Status of a house has been changed to ${req.body.status}</b>
+        `,
+        };
+    
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.log(error);
+                return res.send({ Status: "!!!success" });
+            } else {
+                return res.send({ Status: "Success" });
+            }
+        });
         res.status(201).json(response);
     } catch (error) {
         console.log(error);
