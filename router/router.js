@@ -192,7 +192,7 @@ router.get("/getHouseDataByAgency/:name", getHouseDataByAgency);
 router.post("/updateHouseDataByAgent/:id", updateHouseDataByAgent);
 router.get("/houseAvailableData", getAvailableHouse);
 router.get("/houseDataByAdmin", getHouseListByAdmin);
-router.get("/houseDataByAgent/:name", getHouseListByAgent);
+router.get("/houseDataByAgent/:email", getHouseListByAgent);
 router.get("/spotted-list/:email", getSpottedList);
 router.get("/spotted-list-success/:email", getSpottedListSuccess);
 router.get("/spotted-list-unsuccess/:email", getSpottedListUnsuccess);

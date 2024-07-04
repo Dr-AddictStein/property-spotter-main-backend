@@ -134,8 +134,20 @@ const getHouseListByAdmin = async (req, res) => {
     res.send(dex);
 };
 const getHouseListByAgent = async (req, res) => {
-    const name = req.params.name;
-    const result = await House.find({ agent: name });
+    const email = req.params.email;
+    const result = await House.find({ agentEmail: email });
+    let dex=[];
+    for(let i=0;i<result.length;i++){
+        if(result[i].status==="new"){
+            dex.push(result[i]);
+        }
+    }
+    for(let i=0;i<result.length;i++){
+        if(result[i].status!=="new"){
+            dex.push(result[i]);
+        }
+    }
+    console.log("dex:",dex);
     res.send(result);
 };
 
