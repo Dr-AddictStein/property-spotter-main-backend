@@ -192,6 +192,7 @@ const updateHouseDataByAgent = async (req, res) => {
         const status = req.body.status;
         const random_id=req.body.random_id;
         const result = await House.findByIdAndUpdate(id, upData);
+        const house = await House.findById(id);
         if (upData.oldStatus !== upData.status) {
             console.log("AAA up zzz","-> "+oldStatus,"-> "+status,"-> "+random_id)
             const mailOptions = {
@@ -216,7 +217,7 @@ const updateHouseDataByAgent = async (req, res) => {
 
             const mailOptionsAgent = {
                 from: process.env.EMAIL_USER,
-                to: upData?.agentEmail,
+                to: house.agentEmail,
                 subject: `Listing ${upData.random_id} status has been updated`,
 
                 text: `Listing ${upData.random_id} status has been changed from ${upData?.oldStatus} to ${upData?.status}
@@ -236,7 +237,7 @@ const updateHouseDataByAgent = async (req, res) => {
 
             const mailOptionsSpotters = {
                 from: process.env.EMAIL_USER,
-                to: upData?.spotterEmail,
+                to: house.spotterEmail,
                 subject: `Listing ${upData.random_id} status has been updated`,
 
                 text: `Listing ${upData.random_id} status has been changed from ${upData?.oldStatus} to ${upData?.status}
