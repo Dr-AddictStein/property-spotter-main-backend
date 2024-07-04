@@ -105,7 +105,7 @@ router.post("/update/:id", async (req, res) => {
             `,
             };
         
-            transporter.sendMail(mailOptions, mailOptionsSpotter, function (error, info) {
+            transporter.sendMail(mailOptionsSpotter, function (error, info) {
                 if (error) {
                     console.log(error);
                     return res.send({ Status: "!!!success" });
