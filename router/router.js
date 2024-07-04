@@ -71,6 +71,10 @@ router.post("/update/:id", async (req, res) => {
         const id = req.params.id;
         const upData = req.body;
         const response = await House.findByIdAndUpdate(id, upData);
+
+        const house = await House.findById(id);
+
+        console.log("fixated.!.!.!.",house)
         const transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
