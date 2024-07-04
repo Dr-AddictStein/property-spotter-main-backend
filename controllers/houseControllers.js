@@ -238,7 +238,7 @@ const updateHouseDataByAgent = async (req, res) => {
 
             const mailOptionsSpotters = {
                 from: process.env.EMAIL_USER,
-                to: house.spotterEmail,
+                to: house.spooterEmail,
                 subject: `Listing ${upData.random_id} status has been updated`,
 
                 text: `Listing ${upData.random_id} status has been changed from ${upData?.oldStatus} to ${upData?.status}
