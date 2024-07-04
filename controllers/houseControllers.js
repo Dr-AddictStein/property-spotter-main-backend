@@ -107,7 +107,18 @@ const getHouseDataByAgency = async (req, res) => {
 };
 const getHouseListByAdmin = async (req, res) => {
     const result = await House.find({ agency: { $in: ["admin"] } });
-    res.send(result);
+    let dex=[];
+    for(let i=0;i<result.length;i++){
+        if(result[i].status==="New"){
+            dex.push(result[i]);
+        }
+    }
+    for(let i=0;i<result.length;i++){
+        if(result[i].status!=="New"){
+            dex.push(result[i]);
+        }
+    }
+    res.send(dex);
 };
 const getHouseListByAgent = async (req, res) => {
     const name = req.params.name;
