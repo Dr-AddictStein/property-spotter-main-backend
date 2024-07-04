@@ -118,6 +118,7 @@ const getHouseListByAdmin = async (req, res) => {
             dex.push(result[i]);
         }
     }
+    console.log("dex:",dex);
     res.send(dex);
 };
 const getHouseListByAgent = async (req, res) => {
