@@ -91,7 +91,19 @@ const houseAdd = async (houseData, image) => {
 
 const getHouse = async (req, res) => {
     const result = await House.find();
-    res.send(result);
+    let dex=[];
+    for(let i=0;i<result.length;i++){
+        if(result[i].status==="new"){
+            dex.push(result[i]);
+        }
+    }
+    for(let i=0;i<result.length;i++){
+        if(result[i].status!=="new"){
+            dex.push(result[i]);
+        }
+    }
+    console.log("dex:",dex);
+    res.send(dex);
 };
 const getAvailableHouse = async (req, res) => {
     const result = await House.find({ status: "available" });
