@@ -94,8 +94,18 @@ router.post("/update/:id", async (req, res) => {
                 <b>Status of Listing(RandomID:${req.body.random_id}) has been changed to ${req.body.status}</b>
             `,
             };
+            const mailOptionsSpotter = {
+                from: process.env.EMAIL_USER,
+                to: house.spooterEmail,
+                subject: "Status Change",
+                text: "Status Changed",
+                html: `
+                <b>Hello Spotter,</b>
+                <b>Status of Listing(RandomID:${req.body.random_id}) has been changed to ${req.body.status}</b>
+            `,
+            };
         
-            transporter.sendMail(mailOptions, function (error, info) {
+            transporter.sendMail(mailOptions, mailOptionsSpotter, function (error, info) {
                 if (error) {
                     console.log(error);
                     return res.send({ Status: "!!!success" });
