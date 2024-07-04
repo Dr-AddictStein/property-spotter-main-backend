@@ -193,6 +193,7 @@ const updateHouseDataByAgent = async (req, res) => {
         const random_id=req.body.random_id;
         const result = await House.findByIdAndUpdate(id, upData);
         const house = await House.findById(id);
+        console.log("fixated.!.!.!.",house)
         if (upData.oldStatus !== upData.status) {
             console.log("AAA up zzz","-> "+oldStatus,"-> "+status,"-> "+random_id)
             const mailOptions = {
