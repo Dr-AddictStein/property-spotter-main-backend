@@ -109,12 +109,12 @@ const getHouseListByAdmin = async (req, res) => {
     const result = await House.find({ agency: { $in: ["admin"] } });
     let dex=[];
     for(let i=0;i<result.length;i++){
-        if(result[i].status==="New"){
+        if(result[i].status==="new"){
             dex.push(result[i]);
         }
     }
     for(let i=0;i<result.length;i++){
-        if(result[i].status!=="New"){
+        if(result[i].status!=="new"){
             dex.push(result[i]);
         }
     }
