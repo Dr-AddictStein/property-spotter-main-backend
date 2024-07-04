@@ -123,12 +123,10 @@ router.post("/update/:id", async (req, res) => {
             });
         }
         else{
-            const house = await House.findById({_id:id})
-
-            console.log("SUDU",house);
+            
             const mailOptions = {
                 from: process.env.EMAIL_USER,
-                to: house.agentEmail,
+                to: req.body.agentName,
                 subject: "A new house has been assigned to you.",
                 text: `A new house has been assigned to you. ID: ${req.body.house.random_id}`,
                 html: `
