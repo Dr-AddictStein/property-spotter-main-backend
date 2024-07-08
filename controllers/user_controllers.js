@@ -163,6 +163,10 @@ router.post("/signup", upload.single("images"), async (req, res) => {
         dex="IMAGE";
     }
 
+    console.log("HEIR",req);
+    console.log("HEIRRR",req.file);
+    console.log("HEIRRRRRR",dex);
+
     const filenames = dex;
     const query = { email: email };
 
