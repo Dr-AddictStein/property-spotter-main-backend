@@ -348,9 +348,9 @@ router.post("/signup/spotter", upload.single("images"), async (req, res) => {
 
     let dex;
     console.log("HEIR",req);
-    console.log("HEIRRR",req.file);
     
     if(req.file!==null && req.file.filename!==null){
+        console.log("HEIRRR",req.file);
         dex=req.file.filename;
     }
     else{
@@ -360,7 +360,7 @@ router.post("/signup/spotter", upload.single("images"), async (req, res) => {
     console.log("HEIRRRRRR",dex);
 
 
-    const filenames = req.file.filename;
+    const filenames = dex;
     const query = { email: email };
 
     if (!name || !email || !password) {
