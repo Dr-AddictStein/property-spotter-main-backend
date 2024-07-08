@@ -153,7 +153,7 @@ router.post("/signup", upload.single("images"), async (req, res) => {
     const { name, email, phone, role, password, agencyName, termsAndcondition } =
         req.body;
 
-    const filenames = req.file.filename;
+    const filenames = req?.file?.filename;
     const query = { email: email };
 
     if (!name || !email || !password || !phone) {

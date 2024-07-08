@@ -15,7 +15,6 @@ const userSchema = mongoose.Schema({
   },
   user_image: {
     type: [String],
-    required: true,
   },
 });
 
