@@ -154,20 +154,9 @@ router.post("/signup", upload.single("images"), async (req, res) => {
         req.body;
 
 
-    let dex;
-    console.log("HEIR",req);
-    console.log("HEIRRR",req.file);
     
-    if(req.file!==null && req.file.filename!==null){
-        dex=req.file.filename;
-    }
-    else{
-        dex="IMAGE";
-    }
-    
-    console.log("HEIRRRRRR",dex);
 
-    const filenames = dex;
+    const filenames = req.file.filename;
     const query = { email: email };
 
     if (!name || !email || !password || !phone) {
@@ -356,6 +345,21 @@ router.post("/signup/google", async (req, res) => {
 // Manual spotter Signup
 router.post("/signup/spotter", upload.single("images"), async (req, res) => {
     const { name, email, role, password, termsAndcondition } = req.body;
+
+    let dex;
+    console.log("HEIR",req);
+    console.log("HEIRRR",req.file);
+    
+    if(req.file!==null && req.file.filename!==null){
+        dex=req.file.filename;
+    }
+    else{
+        dex="IMAGE";
+    }
+    
+    console.log("HEIRRRRRR",dex);
+
+
     const filenames = req.file.filename;
     const query = { email: email };
 
