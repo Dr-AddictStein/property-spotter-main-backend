@@ -346,16 +346,7 @@ router.post("/signup/google", async (req, res) => {
 router.post("/signup/spotter", upload.single("images"), async (req, res) => {
     const { name, email, role, password, termsAndcondition } = req.body;
 
-    let dex;
-    console.log("HEIR",req);
-    
-    if(req.file!==null && req.file.filename!==null){
-        console.log("HEIRRR",req.file);
-        dex=req.file.filename;
-    }
-    else{
-        dex="IMAGE";
-    }
+    let dex="IMAGE";
     
     console.log("HEIRRRRRR",dex);
 
