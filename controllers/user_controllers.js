@@ -155,16 +155,16 @@ router.post("/signup", upload.single("images"), async (req, res) => {
 
 
     let dex;
-
+    console.log("HEIR",req);
+    console.log("HEIRRR",req.file);
+    
     if(req.file!==null && req.file.filename!==null){
         dex=req.file.filename;
     }
     else{
         dex="IMAGE";
     }
-
-    console.log("HEIR",req);
-    console.log("HEIRRR",req.file);
+    
     console.log("HEIRRRRRR",dex);
 
     const filenames = dex;
