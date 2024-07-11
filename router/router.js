@@ -48,7 +48,7 @@ const userCollection = require("../models/users");
 const router = expres.Router();
 
 router.post("/add", upload.single("image"), async (req, res) => {
-    
+
     try {
         const path = "https://api.propertyspotter.co.za/image/areas/";
         if (!req.file) {
@@ -65,15 +65,15 @@ router.post("/add", upload.single("image"), async (req, res) => {
 });
 
 router.post("/update/:id", async (req, res) => {
-    console.log("HERERooo Issues zz:",req.body)
+    console.log("HERERooo Issues zz:", req.body)
     try {
-        const forStatus=req.body.forStatus;
+        const forStatus = req.body.forStatus;
         const id = req.params.id;
         const upData = req.body;
         const response = await House.findByIdAndUpdate(id, upData);
 
         const house = await House.findById(id);
-        console.log("fixated.!.!.!.",house.spooterEmail)
+        console.log("fixated.!.!.!.", house.spooterEmail)
 
         const transporter = nodemailer.createTransport({
             service: "gmail",
@@ -82,8 +82,8 @@ router.post("/update/:id", async (req, res) => {
                 pass: process.env.EMAIL_PASSWORD,
             },
         });
-        
-        if(forStatus){
+
+        if (forStatus) {
             console.log("HRERE ate the forstatus = TRRRRUUUEEEEE", req.body);
             const mailOptions = {
                 from: process.env.EMAIL_USER,
@@ -112,15 +112,20 @@ router.post("/update/:id", async (req, res) => {
                 `,
             };
 
-            if(req.body.hasAgent){
+            if (req.body.hasAgent) {
+
+                const agent = await userCollection.findOne({ email: req.body.agentName });
+                console.log("Got User", agent)
+
                 const mailOptionsAgent = {
                     from: process.env.EMAIL_USER,
-                    to: house.spooterEmail,
+                    to: req.body.agentName,
                     subject: "A listing status change has occurred",
                     text: "Status Changed",
                     html: `
-                    <b>Hello Property Spotter,</b></br>
+                    <p>Hello ${agent.name},</p></br>
                     <p>Listing ${house.random_id} status has been changed from ${req.body.status} to ${house.status}</p></br>
+                    <p>Please acknowledge and take action.</p>
                     <p>Kind regards,</p>
                     <p>The Property Spotter Team</p>
                     
@@ -135,7 +140,7 @@ router.post("/update/:id", async (req, res) => {
                     }
                 });
             }
-        
+
             transporter.sendMail(mailOptions, function (error, info) {
                 if (error) {
                     console.log(error);
@@ -153,13 +158,13 @@ router.post("/update/:id", async (req, res) => {
                 }
             });
         }
-        else{
+        else {
 
 
-            const agent = await userCollection.findOne({email:req.body.agentName});
+            const agent = await userCollection.findOne({ email: req.body.agentName });
 
-            console.log("Got User",agent)
-            
+            console.log("Got User", agent)
+
             const mailOptions = {
                 from: process.env.EMAIL_USER,
                 to: req.body.agentName,
@@ -170,7 +175,7 @@ router.post("/update/:id", async (req, res) => {
                 <p>A new listing has been assigned to you.</p></br>
                 <p>Spotter: ${req.body.house.spooterName}</p></br>
                 <p>Listing Number: ${req.body.house.random_id}</p></br>
-                <p>Address: ${req.body.house.address + ' ' + req.body.house.suburb + ' ' + req.body.house.city + ' '+ req.body.house.province}</p></br>
+                <p>Address: ${req.body.house.address + ' ' + req.body.house.suburb + ' ' + req.body.house.city + ' ' + req.body.house.province}</p></br>
                 <p>Owner Name: ${req.body.house.houseOwnerName}</p></br>
                 <p>Owner Email: ${req.body.house.houseOwnerEmail}</p></br>
                 <p>Owner Phone: ${req.body.house.houseOwnerPhone}</p></br>
@@ -187,8 +192,8 @@ router.post("/update/:id", async (req, res) => {
                     return res.send({ Status: "Success" });
                 }
             });
-            
-            
+
+
             const mailOptionsSpotter = {
                 from: process.env.EMAIL_USER,
                 to: req.body.house.spooterEmail,
@@ -210,8 +215,8 @@ router.post("/update/:id", async (req, res) => {
                     return res.send({ Status: "Success" });
                 }
             });
-            
-            
+
+
             const mailOptionsAdmin = {
                 from: process.env.EMAIL_USER,
                 to: process.env.EMAIL_ADMIN,
@@ -234,7 +239,7 @@ router.post("/update/:id", async (req, res) => {
                 }
             });
         }
-    
+
         res.status(201).json(response);
     } catch (error) {
         console.log(error);
