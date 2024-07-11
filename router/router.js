@@ -88,23 +88,53 @@ router.post("/update/:id", async (req, res) => {
             const mailOptions = {
                 from: process.env.EMAIL_USER,
                 to: process.env.EMAIL_ADMIN,
-                subject: "Status Change",
+                subject: "A listing status change has occurred",
                 text: "Status Changed",
                 html: `
-                <b>Hello Admin,</b>
-                <b>Status of Listing(RandomID:${req.body.random_id}) has been changed to ${req.body.status}</b>
+                <b>Hello Property Spotter Admin,</b></br>
+                <p>Listing ${house.random_id} status has been changed from ${req.body.status} to ${house.status}</p></br>
+                <p>Kind regards,</p>
+                <p>The Property Spotter Team</p>
+                
             `,
             };
             const mailOptionsSpotter = {
                 from: process.env.EMAIL_USER,
                 to: house.spooterEmail,
-                subject: "Status Change",
+                subject: "A listing status change has occurred",
                 text: "Status Changed",
                 html: `
-                <b>Hello Spotter,</b>
-                <b>Status of Listing(RandomID:${req.body.random_id}) has been changed to ${req.body.status}</b>
-            `,
+                <b>Hello Property Spotter,</b></br>
+                <p>Listing ${house.random_id} status has been changed from ${req.body.status} to ${house.status}</p></br>
+                <p>Kind regards,</p>
+                <p>The Property Spotter Team</p>
+                
+                `,
             };
+
+            if(req.body.hasAgent){
+                const mailOptionsAgent = {
+                    from: process.env.EMAIL_USER,
+                    to: house.spooterEmail,
+                    subject: "A listing status change has occurred",
+                    text: "Status Changed",
+                    html: `
+                    <b>Hello Property Spotter,</b></br>
+                    <p>Listing ${house.random_id} status has been changed from ${req.body.status} to ${house.status}</p></br>
+                    <p>Kind regards,</p>
+                    <p>The Property Spotter Team</p>
+                    
+                    `,
+                };
+                transporter.sendMail(mailOptionsAgent, function (error, info) {
+                    if (error) {
+                        console.log(error);
+                        res.send({ Status: "!!!success" });
+                    } else {
+                        res.send({ Status: "Success" });
+                    }
+                });
+            }
         
             transporter.sendMail(mailOptions, function (error, info) {
                 if (error) {
