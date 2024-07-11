@@ -82,8 +82,9 @@ router.post("/update/:id", async (req, res) => {
                 pass: process.env.EMAIL_PASSWORD,
             },
         });
-
+        
         if(forStatus){
+            console.log("HRERE ate the forstatus = TRRRRUUUEEEEE", req.body);
             const mailOptions = {
                 from: process.env.EMAIL_USER,
                 to: process.env.EMAIL_ADMIN,
@@ -124,7 +125,6 @@ router.post("/update/:id", async (req, res) => {
         }
         else{
 
-            console.log("HRERE ate the forstatus = false", req.body);
 
             const agent = await userCollection.findOne({email:req.body.agentName});
 
