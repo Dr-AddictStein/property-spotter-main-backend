@@ -125,6 +125,10 @@ router.post("/update/:id", async (req, res) => {
         else{
 
             console.log("HRERE ate the forstatus = false", req.body);
+
+            const agent = userCollection.findOne({email:req.body.agentName});
+
+            console.log("Got User",agent)
             
             const mailOptions = {
                 from: process.env.EMAIL_USER,
