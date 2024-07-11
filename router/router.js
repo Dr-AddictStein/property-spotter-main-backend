@@ -123,6 +123,8 @@ router.post("/update/:id", async (req, res) => {
             });
         }
         else{
+
+            console.log("HRERE ate the forstatus = false", req.body);
             
             const mailOptions = {
                 from: process.env.EMAIL_USER,
