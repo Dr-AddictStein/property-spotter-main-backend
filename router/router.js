@@ -114,12 +114,12 @@ router.post("/update/:id", async (req, res) => {
 
             if (req.body.hasAgent) {
 
-                const agent = await userCollection.findOne({ email: req.body.agentName });
+                const agent = await userCollection.findOne({ email: req.body.house.agentName });
                 console.log("Got User", agent)
 
                 const mailOptionsAgent = {
                     from: process.env.EMAIL_USER,
-                    to: req.body.agentName,
+                    to: agent.email,
                     subject: "A listing status change has occurred",
                     text: "Status Changed",
                     html: `
