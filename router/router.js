@@ -133,24 +133,69 @@ router.post("/update/:id", async (req, res) => {
             const mailOptions = {
                 from: process.env.EMAIL_USER,
                 to: req.body.agentName,
-                subject: "A new house has been assigned to you.",
+                subject: "New Listing has been assigned to you",
                 text: `A new house has been assigned to you. ID: ${req.body.house.random_id}`,
                 html: `
-                <p>House ID: ${req.body.house.random_id}</p></br>
+                <p>Hello ${agent.name},</p></br>
+                <p>A new listing has been assigned to you.</p></br>
+                <p>Spotter: ${req.body.house.spooterName}</p></br>
+                <p>Listing Number: ${req.body.house.random_id}</p></br>
                 <p>Address: ${req.body.house.address + ' ' + req.body.house.suburb + ' ' + req.body.house.city + ' '+ req.body.house.province}</p></br>
-                <p>Bedrooms: ${req.body.house.bedroom}</p></br>
-                <p>Bathrooms: ${req.body.house.bathroom}</p></br>
                 <p>Owner Name: ${req.body.house.houseOwnerName}</p></br>
                 <p>Owner Email: ${req.body.house.houseOwnerEmail}</p></br>
                 <p>Owner Phone: ${req.body.house.houseOwnerPhone}</p></br>
-
-                <p>Please review and take necessary actions.</p>
+                <p>Please acknowledge and take action.</p>
+                <p>Kind regards,</p>
+                <p>The Property Spotter Team</p>
             `,
             };
-
-            
-        
             transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    console.log(error);
+                    return res.send({ Status: "!!!success" });
+                } else {
+                    return res.send({ Status: "Success" });
+                }
+            });
+            
+            
+            const mailOptionsSpotter = {
+                from: process.env.EMAIL_USER,
+                to: req.body.house.spooterEmail,
+                subject: "Your spotted listing has been assigned",
+                text: `A new house has been assigned to you. ID: ${req.body.house.random_id}`,
+                html: `
+                <p>Hello Property Spotter,</p></br>
+                <p>Your listing ${req.body.house.random_id} has been assigned to ${agent.name} at ${req.body.house.agencyName}.</p></br>
+                <p>You will receive further updates as the listing gets updated.</p></br>
+                <p>Kind regards,</p>
+                <p>The Property Spotter Team</p>
+            `,
+            };
+            transporter.sendMail(mailOptionsSpotter, function (error, info) {
+                if (error) {
+                    console.log(error);
+                    return res.send({ Status: "!!!success" });
+                } else {
+                    return res.send({ Status: "Success" });
+                }
+            });
+            
+            
+            const mailOptionsAdmin = {
+                from: process.env.EMAIL_USER,
+                to: process.env.EMAIL_ADMIN,
+                subject: "A Listing has been assigned",
+                text: `A new house has been assigned to you. ID: ${req.body.house.random_id}`,
+                html: `
+                <p>Hello Property Spotter Admin,</p></br>
+                <p>Listing ${req.body.house.random_id} from ${req.body.house.spooterName} has been assigned to ${agent.name} at ${req.body.house.agencyName}.</p></br>
+                <p>You will receive further updates as the listing gets updated.</p></br>
+                <p>Kind regards,</p>
+                <p>The Property Spotter Team</p>
+            `,
+            };
+            transporter.sendMail(mailOptionsAdmin, function (error, info) {
                 if (error) {
                     console.log(error);
                     return res.send({ Status: "!!!success" });
