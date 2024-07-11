@@ -17,7 +17,7 @@ const houseAdd = async (houseData, image) => {
     try {
         const { suburb, city, province, bedroom, bathroom, houseOwnerName, houseOwnerEmail, houseOwnerPhone, agentName, agentEmail, agentPhone, p24_id } = houseData;
         const newData = houseData;
-        console.log(":HOUSE",newData)
+        console.log(":HOUSE", newData)
         newData.image = image;
         const newHouse = new House(newData);
         const savedHouse = await newHouse.save();
@@ -62,6 +62,8 @@ const houseAdd = async (houseData, image) => {
                 subject: `A New House Assign to You !`,
                 text: `A new house has been Assign to You.
                 Random ID: ${savedHouse.random_id}
+                Spotter Name: ${savedHouse.spooterName}
+                Spotter Email: ${savedHouse.spooterEmail}
                 Adress: ${suburb} ${province} ${city}
                 Bedrooms: ${bedroom}
                 Bathrooms: ${bathroom}
@@ -93,18 +95,18 @@ const houseAdd = async (houseData, image) => {
 
 const getHouse = async (req, res) => {
     const result = await House.find();
-    let dex=[];
-    for(let i=0;i<result.length;i++){
-        if(result[i].status==="new"){
+    let dex = [];
+    for (let i = 0; i < result.length; i++) {
+        if (result[i].status === "new") {
             dex.push(result[i]);
         }
     }
-    for(let i=0;i<result.length;i++){
-        if(result[i].status!=="new"){
+    for (let i = 0; i < result.length; i++) {
+        if (result[i].status !== "new") {
             dex.push(result[i]);
         }
     }
-    console.log("dex:",dex);
+    console.log("dex:", dex);
     res.send(dex);
 };
 const getAvailableHouse = async (req, res) => {
@@ -121,35 +123,35 @@ const getHouseDataByAgency = async (req, res) => {
 };
 const getHouseListByAdmin = async (req, res) => {
     const result = await House.find({ agency: { $in: ["admin"] } });
-    let dex=[];
-    for(let i=0;i<result.length;i++){
-        if(result[i].status==="new"){
+    let dex = [];
+    for (let i = 0; i < result.length; i++) {
+        if (result[i].status === "new") {
             dex.push(result[i]);
         }
     }
-    for(let i=0;i<result.length;i++){
-        if(result[i].status!=="new"){
+    for (let i = 0; i < result.length; i++) {
+        if (result[i].status !== "new") {
             dex.push(result[i]);
         }
     }
-    console.log("dex:",dex);
+    console.log("dex:", dex);
     res.send(dex);
 };
 const getHouseListByAgent = async (req, res) => {
     const email = req.params.email;
     const result = await House.find({ agentName: email });
-    let dex=[];
-    for(let i=0;i<result.length;i++){
-        if(result[i].status==="new"){
+    let dex = [];
+    for (let i = 0; i < result.length; i++) {
+        if (result[i].status === "new") {
             dex.push(result[i]);
         }
     }
-    for(let i=0;i<result.length;i++){
-        if(result[i].status!=="new"){
+    for (let i = 0; i < result.length; i++) {
+        if (result[i].status !== "new") {
             dex.push(result[i]);
         }
     }
-    console.log("dex:",dex);
+    console.log("dex:", dex);
     res.send(result);
 };
 
@@ -202,14 +204,14 @@ const updateHouseDataByAgent = async (req, res) => {
         });
         upData.agencyEmail = agencyDetails.email;
         upData.agencyImage = agencyDetails.photoURL;
-        const oldStatus=req.body.oldStatus;
+        const oldStatus = req.body.oldStatus;
         const status = req.body.status;
-        const random_id=req.body.random_id;
+        const random_id = req.body.random_id;
         const result = await House.findByIdAndUpdate(id, upData);
         const house = await House.findById(id);
-        console.log("fixated.!.!.!.",house)
+        console.log("fixated.!.!.!.", house)
         if (upData.oldStatus !== upData.status) {
-            console.log("AAA up zzz","-> "+oldStatus,"-> "+status,"-> "+random_id)
+            console.log("AAA up zzz", "-> " + oldStatus, "-> " + status, "-> " + random_id)
             const mailOptions = {
                 from: process.env.EMAIL_USER,
                 to: process.env.EMAIL_ADMIN,
