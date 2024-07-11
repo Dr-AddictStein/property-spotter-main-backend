@@ -70,6 +70,12 @@ router.post("/update/:id", async (req, res) => {
         const forStatus = req.body.forStatus;
         const id = req.params.id;
         const upData = req.body;
+
+        const oldHouse = await House.findById(id);
+
+        const oldStatus = oldHouse.status;
+
+
         const response = await House.findByIdAndUpdate(id, upData);
 
         const house = await House.findById(id);
@@ -92,7 +98,7 @@ router.post("/update/:id", async (req, res) => {
                 text: "Status Changed",
                 html: `
                 <b>Hello Property Spotter Admin,</b></br>
-                <p>Listing ${house.random_id} status has been changed from ${req.body.status} to ${house.status}</p></br>
+                <p>Listing ${house.random_id} status has been changed from ${oldStatus} to ${house.status}</p></br>
                 <p>Kind regards,</p>
                 <p>The Property Spotter Team</p>
                 
@@ -105,7 +111,7 @@ router.post("/update/:id", async (req, res) => {
                 text: "Status Changed",
                 html: `
                 <b>Hello Property Spotter,</b></br>
-                <p>Listing ${house.random_id} status has been changed from ${req.body.status} to ${house.status}</p></br>
+                <p>Listing ${house.random_id} status has been changed from ${oldStatus} to ${house.status}</p></br>
                 <p>Kind regards,</p>
                 <p>The Property Spotter Team</p>
                 
@@ -124,7 +130,7 @@ router.post("/update/:id", async (req, res) => {
                     text: "Status Changed",
                     html: `
                     <p>Hello ${agent.name},</p></br>
-                    <p>Listing ${house.random_id} status has been changed from ${req.body.status} to ${house.status}</p></br>
+                    <p>Listing ${house.random_id} status has been changed from ${oldStatus} to ${house.status}</p></br>
                     <p>Please acknowledge and take action.</p>
                     <p>Kind regards,</p>
                     <p>The Property Spotter Team</p>
