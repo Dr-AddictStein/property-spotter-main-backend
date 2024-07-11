@@ -154,7 +154,7 @@ router.post("/signup", upload.single("images"), async (req, res) => {
         req.body;
 
 
-    
+
 
     const filenames = req.file.filename;
     const query = { email: email };
@@ -347,17 +347,17 @@ router.post("/signup/spotter", upload.single("images"), async (req, res) => {
     const { name, email, role, password, termsAndcondition } = req.body;
 
     let dex;
-    console.log("HEIR",role);
-    
-    if(req?.file && req?.file?.filename!==null){
-        console.log("HEIRRR",req?.file);
-        dex=req?.file?.filename;
+    console.log("HEIR", role);
+
+    if (req?.file && req?.file?.filename !== null) {
+        console.log("HEIRRR", req?.file);
+        dex = req?.file?.filename;
     }
-    else{
-        dex="IMAGE";
+    else {
+        dex = "IMAGE";
     }
-    
-    console.log("HEIRRRRRR",dex);
+
+    console.log("HEIRRRRRR", dex);
 
 
     const filenames = dex;
@@ -439,10 +439,11 @@ router.post("/signup/spotter", upload.single("images"), async (req, res) => {
         to: process.env.EMAIL_ADMIN,
         subject: `New ${role} has been registered.`,
         text: `
-          A ${role} has been registered on Property Spotter!
+
+            <p>Hello Property Spotter Admin.</p>
+            <p>A new spotter has been registered:</p>
           Name:${name}
           Email:${email}
-          Please review and take any necessary actions.
       
           Thank you,
           The Property Spotter Team
@@ -454,10 +455,10 @@ router.post("/signup/spotter", upload.single("images"), async (req, res) => {
     transporter.sendMail(mailOptionsTwo, function (error, info) {
         if (error) {
             console.log(error);
-            mail="jay nai";
+            mail = "jay nai";
         } else {
             console.log("Email sent: " + info.response);
-            mail="gese";
+            mail = "gese";
         }
     });
 
