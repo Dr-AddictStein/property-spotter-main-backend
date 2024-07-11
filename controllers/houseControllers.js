@@ -28,6 +28,8 @@ const houseAdd = async (houseData, image) => {
             subject: `New House Added !`,
             text: `A new house has been added to Property Spotter.
             Random ID: ${savedHouse.random_id}
+            Spotter Name: ${savedHouse.spooterName}
+            Spotter Email: ${savedHouse.spooterEmail}
             Adress: ${suburb} ${province} ${city}
             Bedrooms: ${bedroom}
             Bathrooms: ${bathroom}
