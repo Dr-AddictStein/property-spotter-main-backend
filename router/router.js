@@ -121,7 +121,7 @@ router.post("/update/:id", async (req, res) => {
             if (req.body.hasAgent) {
 
                 const agent = await userCollection.findOne({ email: req.body.house.agentEmail });
-                console.log("Got User", agent)
+                console.log("Got User Agent", agent)
 
                 const mailOptionsAgent = {
                     from: process.env.EMAIL_USER,
