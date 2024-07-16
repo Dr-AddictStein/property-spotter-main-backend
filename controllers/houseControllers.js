@@ -140,7 +140,7 @@ const getHouseListByAdmin = async (req, res) => {
 };
 const getHouseListByAgent = async (req, res) => {
     const email = req.params.email;
-    const result = await House.find({ agentName: email });
+    const result = await House.find({ agentEmail: email });
     let dex = [];
     for (let i = 0; i < result.length; i++) {
         if (result[i].status === "new") {
