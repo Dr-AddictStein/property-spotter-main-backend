@@ -18,6 +18,7 @@ const houseAdd = async (houseData, image) => {
         const { suburb, city, province, bedroom, bathroom, houseOwnerName, houseOwnerEmail, houseOwnerPhone, agentName, agentEmail, agentPhone, p24_id } = houseData;
         const newData = houseData;
         console.log(":HOUSE", newData)
+        console.log(":HOUSE AAAAA", newData)
         newData.image = image;
         const newHouse = new House(newData);
         const savedHouse = await newHouse.save();
